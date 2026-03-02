@@ -101,6 +101,19 @@ document.getElementById('stop-btn').addEventListener('click', stopWebcam);
 // Prediction Logic
 async function predict(imageElement) {
     const prediction = await model.predict(imageElement);
+    const alertContainer = document.getElementById('alert-container');
+
+    // Check if any prediction is above 60% confidence
+    const sortedPredictions = [...prediction].sort((a, b) => b.probability - a.probability);
+    const topPrediction = sortedPredictions[0];
+    const isRecognized = topPrediction.probability > 0.6;
+
+    if (!isRecognized) {
+        alertContainer.classList.remove('hidden');
+    } else {
+        alertContainer.classList.add('hidden');
+    }
+
     for (let i = 0; i < maxPredictions; i++) {
         const classPrediction = prediction[i].className;
         const probability = (prediction[i].probability * 100).toFixed(0);
@@ -110,11 +123,15 @@ async function predict(imageElement) {
         bar.querySelector('.conf-text').innerText = probability + "%";
         bar.querySelector('.bar-fill').style.width = probability + "%";
 
-        // Highlight top prediction
-        if (prediction[i].probability > 0.5) {
-            bar.querySelector('.bar-fill').style.background = "#e67e22";
+        // Highlight top prediction if recognized
+        if (isRecognized && prediction[i] === topPrediction) {
+            bar.querySelector('.bar-fill').style.background = "linear-gradient(90deg, #38bdf8, #22d3ee)";
+            bar.style.borderColor = "rgba(56, 189, 248, 0.5)";
+            bar.style.background = "rgba(56, 189, 248, 0.05)";
         } else {
-            bar.querySelector('.bar-fill').style.background = "#d4a373";
+            bar.querySelector('.bar-fill').style.background = "rgba(255, 255, 255, 0.1)";
+            bar.style.borderColor = "var(--glass-border)";
+            bar.style.background = "rgba(255, 255, 255, 0.03)";
         }
     }
 }
@@ -143,6 +160,7 @@ function showPreview(file) {
 function resetUpload() {
     previewContainer.classList.add('hidden');
     dropZone.classList.remove('hidden');
+    document.getElementById('alert-container').classList.add('hidden');
     imageUpload.value = '';
     imagePreview.src = '';
 
