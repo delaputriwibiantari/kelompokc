@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klasifikasi Tanaman Rimpang - Kelompok C</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.4/dist/tf.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.4/dist/teachablemachine-image.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Klasifikasi Rimpang</h1>
+            <p class="subtitle">Prediksi otomatis jenis rimpang menggunakan AI</p>
+        </header>
+
+        <section class="info-container glass">
+            <div class="info-content">
+                <h3>Apa Manfaat Aplikasi Ini?</h3>
+                <p>
+                    Aplikasi ini dirancang untuk membantu pengguna dalam mengidentifikasi berbagai jenis rimpang herbal
+                    secara instan dan akurat.
+                    Dengan teknologi kecerdasan buatan, Anda kini bisa membedakan Jahe, Kunyit, Temulawak, dan rimpang
+                    lainnya hanya dengan tangkapan kamera atau unggahan foto.
+                    Teknologi ini sangat bermanfaat sebagai alat edukasi kesehatan, pendukung industri obat tradisional,
+                    serta membantu petani dan pedagang dalam memastikan kualitas dan jenis komoditas mereka dengan lebih
+                    cepat dan efisien.
+                </p>
+            </div>
+            <div class="info-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">⚡</span>
+                    <span class="stat-text">Identifikasi Cepat</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🎯</span>
+                    <span class="stat-text">Akurasi Tinggi</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🌿</span>
+                    <span class="stat-text">Edukasi Herbal</span>
+                </div>
+            </div>
+        </section>
+
+        <main>
+            <div class="card glass">
+                <div class="tabs">
+                    <button id="webcam-tab" class="tab-btn active">Webcam</button>
+                    <button id="upload-tab" class="tab-btn">Upload Gambar</button>
+                </div>
+
+                <div class="view-container">
+                    <div id="webcam-view" class="view active">
+                        <div id="webcam-container"></div>
+                        <div class="controls">
+                            <button id="start-btn" class="primary-btn">Mulai Kamera</button>
+                            <button id="stop-btn" class="secondary-btn hidden">Berhenti</button>
+                        </div>
+                    </div>
+
+                    <div id="upload-view" class="view">
+                        <div class="drop-zone" id="drop-zone">
+                            <div class="drop-zone__content">
+                                <span class="upload-icon">📁</span>
+                                <span class="drop-zone__prompt">Tarik gambar ke sini atau klik untuk upload</span>
+                            </div>
+                            <input type="file" name="myFile" class="drop-zone__input" id="image-upload"
+                                accept="image/*">
+                        </div>
+                        <div id="preview-container" class="hidden">
+                            <div class="preview-wrapper">
+                                <img id="image-preview" src="" alt="Preview">
+                                <div class="preview-overlay">
+                                    <button id="reupload-btn" class="icon-btn" title="Ganti Gambar">🔄</button>
+                                </div>
+                            </div>
+                            <div class="upload-controls">
+                                <button id="predict-upload-btn" class="primary-btn">Klasifikasi Gambar</button>
+                                <button id="reset-upload-btn" class="text-btn">Batal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card glass result-card">
+                <h2>Hasil Prediksi</h2>
+                <div id="loading-model" class="status-msg">
+                    <div class="spinner"></div>
+                    Memuat Model...
+                </div>
+                <div id="label-container"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Kelompok C FIX</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
