@@ -64,8 +64,8 @@ async function startWebcam() {
     const stopBtn = document.getElementById('stop-btn');
 
     const flip = true;
-    webcam = new tmImage.Webcam(400, 400, flip);
-    await webcam.setup(); // request access to the webcam
+    webcam = new tmImage.Webcam(500, 500, flip);
+    await webcam.setup();
     await webcam.play();
     isWebcamRunning = true;
     window.requestAnimationFrame(loop);

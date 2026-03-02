@@ -193,6 +193,13 @@ header h1 {
     box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
 }
 
+#webcam-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    border-radius: 28px;
+}
+
 #webcam-container::before {
     content: '';
     position: absolute;
